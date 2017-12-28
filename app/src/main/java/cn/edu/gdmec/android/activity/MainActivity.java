@@ -17,14 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.R;
+import cn.edu.gdmec.android.view.CourseView;
 import cn.edu.gdmec.android.view.ExercisesView;
+import cn.edu.gdmec.android.view.MyInfoView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 /*视图
 * */
-    //private CourseView mCourseView;
+    private CourseView mCourseView;
     private ExercisesView mExercisesView;
-    //private MyInfoView mMyInfoView
+    private MyInfoView mMyInfoView;
     /**
      * 中间内容栏
      */
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setListener();
         setInitStatus();
     }
-/*获取界面上的UI控件3*/
+/*获取界面上的UI控件*/
     private void init() {
         tv_back=(TextView) findViewById(R.id.tv_back);
         tv_main_title=(TextView) findViewById(R.id.tv_main_title);
@@ -91,20 +93,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //课件的点击事件
         case R.id.bottom_bar_course_btn:
             clearBottomImageState();
-            selectDisaplayView(0);
+            selectDisaplayView(1);
             break;
             //习题的点击事件
         case R.id.bottom_bar_exercises_btn:
             clearBottomImageState();
-            selectDisaplayView(1);
+            selectDisaplayView(2);
             break;
             //我的点击事件
         case R.id.bottom_bar_myinfo_btn:
             clearBottomImageState();
-            selectDisaplayView(2);
-   //         if (mMyInfoView!=null){
-   //             mMyInfoView.setLoginParams(readLoginStatus());
-    //        }
+            selectDisaplayView(3);
+            if (mMyInfoView!=null){
+              mMyInfoView.setLoginParams(readLoginStatus());
+            }
             break;
             default:
                 break;
@@ -113,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /*
     * 设置底部三个按钮的点击监听事件*/
     private  void setListener(){
-        for (int i = 0;i<mBottomLayout.getChildCount();i++){
-            mBottomLayout.getChildAt(i).setOnClickListener(this);
+        for (int i = 0;i<mBottomLayout.getChildCount();i++){//getChildCount获取当前布局的所有控件总数
+            mBottomLayout.getChildAt(i).setOnClickListener(this);//通过getChildAt方法为当前布局所有控件设置监听
         }
     }
     /*
@@ -133,19 +135,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /*设置底部按钮选中状态*/
     public void setSelectedStatus(int index){
         switch (index){
-            case 0:
+            case 1:
                 mCourseBtn.setSelected(true);
                 iv_course.setImageResource(R.drawable.main_course_icon_selected);
                 tv_course.setTextColor(Color.parseColor("#0097F7"));
                 rl_title_bar.setVisibility(View.VISIBLE);
                 tv_main_title.setText("博学谷课程");
-            case 1:
+            case 2:
                 mExercisesBtn.setSelected(true);
                 iv_exercises.setImageResource(R.drawable.main_exercises_icon_selected);
                 tv_exercises.setTextColor(Color.parseColor("#0097F7"));
                 rl_title_bar.setVisibility(View.VISIBLE);
                 tv_main_title.setText("博学谷习题");
-            case 2:
+            case 3:
                 mMyInfoBtn.setSelected(true);
                 iv_myInfo.setImageResource(R.drawable.main_my_icon_selected);
                 tv_myInfo.setTextColor(Color.parseColor("#0097F7"));
@@ -153,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     /*移除不需要的视图*/
-    private void removeAllView(){
+    private void removeAllView(){//遍历所有控件，通过改变可见性来实现移除效果
         for(int i = 0;i<mBodyLayout.getChildCount();i++){
             mBodyLayout.getChildAt(i).setVisibility(View.GONE);
         }
@@ -175,13 +177,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (viewIndex){
             case 0:
                 //课程界面
-  //              if (mCourseView==null){
-    //                mCourseView = new CourseView(this);
-     //               mBodyLayout.addView(mCourseView.getView());
-   //             }else{
-     //               mCourseView.getView();
-    //            }
-     //           mCourseView.showView();
+                if (mCourseView==null){
+                   mCourseView = new CourseView(this);
+                   mBodyLayout.addView(mCourseView.getView());
+               }else{
+                    mCourseView.getView();
+                }
+                mCourseView.showView();
                break;
             case 1:
                 //习题界面
@@ -195,13 +197,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
            case 2:
                 //我的界面
-       //         if (mMyInfoView== null){
-        //            mMyInfoView = new MyInfoView(this);
-         //           mBodyLayout.addView(mExercisesView.getView());
-         //       }else{
-          //          mMyInfoView.getView();
-         //       }
-          //      mMyInfoView.showView();
+                if (mMyInfoView== null){
+                   mMyInfoView = new MyInfoView(this);
+                    mBodyLayout.addView(mExercisesView.getView());
+                }else{
+                    mMyInfoView.getView();
+                }
+                mMyInfoView.showView();
               break;
         }
     }
@@ -216,10 +218,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 clearBottomImageState();
                 selectDisaplayView(0);
             }
- //           if (mMyInfoView != null) {
+            if (mMyInfoView != null) {
                 //登录成功或退出登录时根据isLogin设置我的界面
-  //              mMYInfoView.setLoginParams(isLogin);
-   //         }
+                mMyInfoView.setLoginParams(isLogin);
+            }
         }
     }
     protected  long exitTime;//记录第一次点击时的时间
@@ -228,14 +230,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
             if ((System.currentTimeMillis()-exitTime)>2000){
                 Toast.makeText(MainActivity.this,"再按一次退出博学谷",Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
+                exitTime = System.currentTimeMillis();//currentTimeMillis为当前时间
             }else{
                 MainActivity.this.finish();
                 if (readLoginStatus()){
                     //如果退出此应用时是登录状态，则需要清除登录状态，同时需清楚登录时的用户名
                     clearLoginStatus();
                 }
-                System.exit(0);
+                System.exit(0);//强行退出
             }
             return true;
         }

@@ -20,12 +20,14 @@
         android:id="@+id/et_user_name"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/login_user_name_bg"
         android:drawableLeft="@drawable/user_name_icon"
         android:drawablePadding="10dp"
+        android:gravity="center_vertical"
         android:hint="请输入用户名"
         android:paddingLeft="8dp"
         android:singleLine="true"
@@ -37,12 +39,14 @@
         android:id="@+id/et_psw"
         android:layout_width="fill_parent"
         android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
         android:layout_marginTop="35dp"
         android:background="@drawable/login_psw_bg"
         android:drawableLeft="@drawable/psw_icon"
         android:drawablePadding="10dp"
+        android:gravity="center_vertical"
         android:hint="请输入密码"
         android:paddingLeft="8dp"
         android:singleLine="true"
@@ -60,10 +64,10 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/register_selector"
         android:text="登录"
+        android:textColor="@android:color/white"
         android:textSize="18sp" />
 
     <LinearLayout
-
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
@@ -94,7 +98,5 @@
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </LinearLayout>
-
-
 </LinearLayout>
 
