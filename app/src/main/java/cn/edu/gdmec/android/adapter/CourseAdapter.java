@@ -14,7 +14,6 @@ import java.util.List;
 import cn.edu.gdmec.android.R;
 import cn.edu.gdmec.android.activity.VideoListActivity;
 import cn.edu.gdmec.android.bean.CourseBean;
-import cn.edu.gdmec.android.bean.VideoBean;
 
 /**
  * Created by 23460 on 2017/12/28.
@@ -29,7 +28,7 @@ public class CourseAdapter extends BaseAdapter {
     /*
     设置数据更新界面
      */
-    public void setData(List<VideoBean>vbl){
+    public void setData(List<List<CourseBean>>cbl){
         this.cbl =cbl;
         notifyDataSetChanged();
     }

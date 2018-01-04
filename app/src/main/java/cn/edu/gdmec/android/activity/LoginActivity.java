@@ -18,15 +18,11 @@ import cn.edu.gdmec.android.utils.MD5Utils;
 public class LoginActivity extends AppCompatActivity {
 
     private TextView tv_main_title;
-    private TextView tv_back;
-    private TextView tv_register;
-    private TextView textView;
+    private TextView tv_back,tv_register,tv_find_psw;
     private Button btn_login;
-    private TextView tv_find_psw;
-    private EditText et_user_name;
-    private EditText et_psw;
-    private String userName;
-    private String psw;
+    private EditText et_user_name,et_psw;
+    private String userName,psw,spPsw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
         tv_back = (TextView) findViewById(R.id.tv_back);
         tv_register = (TextView) findViewById(R.id.tv_register);
-        textView = (TextView) findViewById(R.id.tv_find_psw);
+        tv_find_psw = (TextView) findViewById(R.id.tv_find_psw);
         btn_login = (Button) findViewById(R.id.btn_login);
-        tv_find_psw = ((TextView) findViewById(R.id.tv_find_psw));
         et_user_name = (EditText) findViewById(R.id.et_user_name);
         et_psw = (EditText) findViewById(R.id.et_psw);
         tv_main_title.setText("登录");
@@ -70,7 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         tv_find_psw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到找回密码页面（暂时不作处理）
+               Intent intent = new Intent(LoginActivity.this,FindPswActivity.class);
+               startActivity(intent);
             }
         });
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 //调用MD5Utils的md5方法将用户输入的密码加密
                 String md5Psw =  MD5Utils.md5(psw);
                 //封装一个方法用于读取sharedPreferences中用户保存的数据，以便作校对
-                String spPsw = readPsw(userName);
+                 spPsw = readPsw(userName);
                 //获取之后，实现校验逻辑，即对用户输入内容做判断并给出提示
                 if (TextUtils.isEmpty(userName)){
                     Toast.makeText(LoginActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();

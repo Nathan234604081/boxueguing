@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
             //timertask实现runable借口，TimerTask类表示在一个指定时间内执行task
             @Override
             public void run() {
-                Intent intent =new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent =new Intent(SplashActivity.this,LoginActivity.class);
                 startActivity(intent);
                 SplashActivity.this.finish();
             }

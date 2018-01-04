@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if (isExistUserName(userName)){
                     Toast.makeText(RegisterActivity.this, "用户名已存在", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (isExistUserName(userName)){
+                }else{
                     Toast.makeText(RegisterActivity.this, "注册成功 ", Toast.LENGTH_SHORT).show();
                     //把用户名和密码保存到Sharedpreferences里面
                     saveRegisterInfo(userName,psw);
